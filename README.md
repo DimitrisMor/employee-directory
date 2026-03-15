@@ -1,73 +1,71 @@
-# React + TypeScript + Vite
+# Employee Directory
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple **Employee Directory application** built with **React, TypeScript, Redux Toolkit and Material UI**.
 
-Currently, two official plugins are available:
+The application allows users to browse employees, search by name or email, filter by department and view employee details.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- View a list of employees
+- Search employees by **name or email**
+- Filter employees by **department**
+- Pagination (**10 employees per page**)
+- Click an employee to open a **details page**
+- Employee status displayed using **visual indicators**
+- Filters persisted using **localStorage**
+- Responsive UI built with **Material UI**
+- Styling with **SCSS**
+- Basic **unit test** included
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React
+- TypeScript
+- Redux Toolkit
+- React Router
+- Material UI
+- SCSS
+- Vite
+- Vitest
+- React Testing Library
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Installation
+
+Clone the repository and install dependencies.
+
+```bash
+git clone <repository-url>
+cd employee-directory
+yarn install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Run the Application
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+yarn dev
 ```
+
+---
+
+## Run tests
+
+```bash
+yarn test
+```
+
+---
+
+
+## Notes
+
+- Employee data is loaded from a local JSON file
+- Search and department filters are persisted using localStorage
+- Pagination displays 10 employees per page
