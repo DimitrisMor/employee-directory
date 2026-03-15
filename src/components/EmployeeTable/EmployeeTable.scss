@@ -1,0 +1,8 @@
+.employee-table-row {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.employee-table-row:hover {
+  background-color: #f3f4f6;
+}

@@ -1,0 +1,56 @@
+$primary: #2563eb;
+$primary-light: #eff6ff;
+$text-main: #1f2937;
+$text-secondary: #6b7280;
+$page-bg: #f1f5f9;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, Arial, sans-serif;
+  background: $page-bg;
+  color: $text-main;
+}
+
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.page-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: $primary;
+}
+
+.page-subtitle {
+  color: $text-secondary;
+  margin-bottom: 24px;
+}
+
+.filters-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.employee-count {
+  color: $text-secondary;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* table improvements */
+
+.employee-table-row {
+  transition: background 0.2s ease;
+}
+
+.employee-table-row:hover {
+  background: $primary-light;
+}
