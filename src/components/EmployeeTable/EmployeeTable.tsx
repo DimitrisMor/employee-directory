@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useState } from 'react';
-import Chip from '@mui/material/Chip';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,6 +10,11 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router-dom';
 import type { Employee } from '../../types/Employee';
+import {
+  EMPLOYEE_TABLE_ROWS_PER_PAGE,
+  getPaginatedEmployees,
+  employeeColumns
+} from './employee-table.helpers';
 import './EmployeeTable.scss';
 
 interface EmployeeTableProps {
@@ -20,7 +24,6 @@ interface EmployeeTableProps {
 const EmployeeTable = ({ employees }: EmployeeTableProps) => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
-  const rowsPerPage = 10;
 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -28,8 +31,11 @@ const EmployeeTable = ({ employees }: EmployeeTableProps) => {
   }, [employees]);
 
   const paginatedEmployees = useMemo(() => {
-    const start = page * rowsPerPage;
-    return employees.slice(start, start + rowsPerPage);
+    return getPaginatedEmployees(
+      employees,
+      page,
+      EMPLOYEE_TABLE_ROWS_PER_PAGE
+    );
   }, [employees, page]);
 
   const handleChangePage = (_event: unknown, newPage: number) => {
@@ -55,11 +61,11 @@ const EmployeeTable = ({ employees }: EmployeeTableProps) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><strong>Name</strong></TableCell>
-              <TableCell><strong>Email</strong></TableCell>
-              <TableCell><strong>Department</strong></TableCell>
-              <TableCell><strong>Position</strong></TableCell>
-              <TableCell><strong>Status</strong></TableCell>
+              {employeeColumns.map((column) => (
+                <TableCell key={column.key}>
+                  <strong>{column.label}</strong>
+                </TableCell>
+              ))}
             </TableRow>
           </TableHead>
 
@@ -71,20 +77,11 @@ const EmployeeTable = ({ employees }: EmployeeTableProps) => {
                 className="employee-table-row"
                 onClick={() => navigate(`/employee/${employee.id}`)}
               >
-                <TableCell>
-                  {employee.firstName} {employee.lastName}
-                </TableCell>
-                <TableCell>{employee.email}</TableCell>
-                <TableCell>{employee.department}</TableCell>
-                <TableCell>{employee.position}</TableCell>
-                <TableCell>
-                  <Chip
-                    label={employee.status}
-                    color={employee.status === 'Active' ? 'success' : 'default'}
-                    size="small"
-                    variant={employee.status === 'Active' ? 'filled' : 'outlined'}
-                  />
-                </TableCell>
+                {employeeColumns.map((column) => (
+                  <TableCell key={`${employee.id}-${column.key}`}>
+                    {column.renderCell(employee)}
+                  </TableCell>
+                ))}
               </TableRow>
             ))}
           </TableBody>
@@ -96,8 +93,8 @@ const EmployeeTable = ({ employees }: EmployeeTableProps) => {
         count={employees.length}
         page={page}
         onPageChange={handleChangePage}
-        rowsPerPage={rowsPerPage}
-        rowsPerPageOptions={[10]}
+        rowsPerPage={EMPLOYEE_TABLE_ROWS_PER_PAGE}
+        rowsPerPageOptions={[EMPLOYEE_TABLE_ROWS_PER_PAGE]}
       />
     </Paper>
   );
